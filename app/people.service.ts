@@ -13,7 +13,17 @@ export class PeopleService {
   getAll(): Person[] {
     return PEOPLE;
   }
-  get(id:number): Person {
+  get(id: number): Person {
     return PEOPLE.find(p => p.id === id);
+  }
+  save(person: Person) {
+    let originalPerson = PEOPLE.find(p => p.id === person.id);
+    if (originalPerson) Object.assign(originalPerson, person);
+    // saved muahahaha
+  }
+
+  private clone(object: any) {
+    // hack
+    return JSON.parse(JSON.stringify(object));
   }
 }

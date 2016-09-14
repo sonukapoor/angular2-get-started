@@ -5,19 +5,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'people-details',
-  template: `
-  <section *ngIf="person">
-      <h2>You selected:  {{person.name}}</h2>
-      <h3>Description</h3>
-      <p>
-        {{person.name}} weights  {{person.weight}} and is  {{person.height}} tall.
-      </p>
-    </section>
-    <button (click)="gotoPeoplesList()">Back to peoples list</button>
-  `
+  templateUrl: 'app/person-details.component.html'
 })
 
 export class PersonDetailsComponent implements OnInit, OnDestroy {
+  professions: string[] = ['jedi', 'bounty hunter', 'princess', 'sith lord'];
   person: Person;
   sub: any;
 
@@ -25,7 +17,7 @@ export class PersonDetailsComponent implements OnInit, OnDestroy {
     private peopleService: PeopleService,
     private route: ActivatedRoute,
     private router: Router) { }
-  
+
   ngOnInit() {
     this.sub = this.route.params.subscribe(params => {
       let id = Number.parseInt(params['id']);
@@ -37,9 +29,12 @@ export class PersonDetailsComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  gotoPeoplesList()
-  {
+  gotoPeoplesList() {
     let link = ['/persons'];
     this.router.navigate(link);
+  }
+
+  savePersonDetails() {
+    this.peopleService.save(this.person);
   }
 }
