@@ -6,11 +6,12 @@ import {Person} from './person';
   selector: 'people-list',
   template: `
     <ul>
-      <li *ngFor="let person of people" (click)="selectPerson(person)">
+      <li *ngFor="let person of people">
+      <a href="#" [routerLink]="['/persons', person.id]">
         {{person.name}}
+        </a>
       </li>
     </ul>
-    <people-details [person]="selectedPerson"></people-details>
   `
 })
 
