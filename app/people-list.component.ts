@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Rx';
 import { Response } from '@angular/http';
 import { PeopleService } from './people.service';
 import { Component } from '@angular/core';
@@ -39,5 +40,12 @@ export class PeopleListComponent {
       p => this.people = p,
       e => this.errorMessage = e,
       () => this.isLoading = false);
+
+    /*
+    You can also use the below pattern to load the person in an async way.
+    1. Change people from  people: Person[] = []; to people: Observable<Person[]>;
+    2. Replace the ngOnInit code to this this.people = this.peopleService.getAll();
+    3. Add the 'async' pipe into the *ngFor like: <li *ngFor="let person of people | async">
+    */
   }
 }
